@@ -1,0 +1,41 @@
+#============ACCOUNTS=============
+
+# API CALL FOR USER 
+
+###
+POST http://127.0.0.1:8000/accounts/register/
+Content-Type: application/json
+
+{
+    "username":"arun",
+    "email":"arun@gmail.com",
+    "password":"arun@123",
+    "phone":"8765904367",
+    "dob":"2004-11-10",
+    "height":149.50,
+    "weight":45.75
+}
+
+
+#=============FOODLOG===============
+
+# API CALL FOR LIST ALL FOOD LOG
+
+###
+GET http://127.0.0.1:8000/foodlog/
+Accept: application/json
+Authorization: Basic arun:arun@123
+
+# API CALL FOR CREATE FOODLOG
+
+###
+POST http://127.0.0.1:8000/foodlog/
+Content-Type: application/json
+Authorization: Basic arun:arun@123
+
+{
+    "title":"browine",
+    "quantity":"30",
+    "meal_type":"snack",
+    "calorie":230
+}

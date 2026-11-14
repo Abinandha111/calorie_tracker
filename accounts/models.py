@@ -1,0 +1,14 @@
+from django.db import models
+
+# Create your models here.
+from django.contrib.auth.models import AbstractUser
+
+class User(AbstractUser):
+
+    phone = models.CharField(max_length=15,unique=True)
+
+    dob = models.DateField(null=True)
+
+    height = models.DecimalField(max_digits=5,decimal_places=2)
+
+    weight = models.DecimalField(max_digits=5,decimal_places=2)
