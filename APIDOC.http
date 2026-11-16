@@ -34,8 +34,54 @@ Content-Type: application/json
 Authorization: Basic arun:arun@123
 
 {
-    "title":"browine",
-    "quantity":"30",
-    "meal_type":"snack",
-    "calorie":230
+    "title":"dosa",
+    "quantity":"150",
+    "meal_type":"breakfast",
+    "calorie":200
 }
+
+
+
+# API CALL FORFETCHING EXPENSE DETAIL   
+
+###
+GET http://127.0.0.1:8000/foodlog/1/
+Accept: application/json
+Authorization: Basic arun:arun@123
+
+# API CALL FOR UPDATE
+
+###
+PUT http://127.0.0.1:8000/foodlog/1/
+Content-Type: application/json
+Authorization: Basic arun:arun@123
+
+{
+    
+  "id": 1,
+  "title": "idli",
+  "quantity": "30",
+  "meal_type": "breakfast",
+  "food_image": null,
+  "created_at": "2026-11-12T12:06:54.570083Z",
+  "calorie": 230.0,
+  "owner": 1
+}
+
+
+
+
+# API CALL FOR DELETE
+
+###
+DELETE  http://127.0.0.1:8000/foodlog/2/
+Accept: application/json
+Authorization: Basic arun:arun@123
+
+
+# API CALL FOR CALORIE SUMMARY
+
+###
+GET http://127.0.0.1:8000/foodlog/summary/
+Accept: application/json
+Authorization: Basic arun:arun@123

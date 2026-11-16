@@ -16,12 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
 from accounts.views import SignUpView
+
 from diet_tracking.views import FoodLogListCreateView
+from diet_tracking.views import FoodLogRetrieveUpdateDeleteView
+from diet_tracking.views import FoodLogSummaryView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/register/',SignUpView.as_view()),
 
     #diet_tracking
     path('foodlog/',FoodLogListCreateView.as_view()),
+    path('foodlog/<int:pk>/',FoodLogRetrieveUpdateDeleteView.as_view()),
+    path('foodlog/summary/',FoodLogSummaryView.as_view()),
 ]
