@@ -12,7 +12,9 @@ from diet_tracking.serializers import FoodLogSerializer
 
 class FoodLogListCreateView(APIView):
 
-    authentication_classes = [authentication.BasicAuthentication]
+    # authentication_classes = [authentication.BasicAuthentication]
+
+    authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request):
@@ -48,7 +50,8 @@ from diet_tracking.permissions import IsOwner
 
 class FoodLogRetrieveUpdateDeleteView(APIView):
 
-    authentication_classes = [authentication.BasicAuthentication]
+    # authentication_classes = [authentication.BasicAuthentication]
+    authentication_classes = [authentication.TokenAuthentication]
 
     permission_classes = [IsOwner]
 
@@ -102,7 +105,9 @@ from django.db.models import Sum
 class FoodLogSummaryView(APIView):
 
 
-    authentication_classes =[authentication.BasicAuthentication]
+    # authentication_classes =[authentication.BasicAuthentication]
+
+    authentication_classes = [authentication.TokenAuthentication]
 
     permission_classes=[permissions.IsAuthenticated]
 
@@ -122,6 +127,16 @@ class FoodLogSummaryView(APIView):
                                                 ).values("calorie").aggregate(total=Sum("calorie")).get("total")
 
         #todays_total=3200
+
+        cur_month = datetime.today().month
+        cur_year = datetime.today().year
+
+        monthly_total = auth_user_foodlog.filter(
+            created_at__month=cur_month,
+            created_at__year=cur_year
+        ).values("calorie").aggregate(total=Sum("calorie")).get("total")
+
+        response_data["monthly_calories"] = monthly_total
 
         response_data["todays_calories"]= todays_total
 

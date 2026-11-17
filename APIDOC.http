@@ -16,6 +16,18 @@ Content-Type: application/json
     "weight":45.75
 }
 
+#=======TOKEN=================
+
+# API CALL FOR TOKEN 
+
+###
+POST http://127.0.0.1:8000/token/ 
+Content-Type: application/json
+
+{
+    "username":"arun",
+    "password":"arun@123"
+}
 
 #=============FOODLOG===============
 
@@ -24,14 +36,14 @@ Content-Type: application/json
 ###
 GET http://127.0.0.1:8000/foodlog/
 Accept: application/json
-Authorization: Basic arun:arun@123
+Authorization: Token 69b9d384e133bd2d0126a953e229c25362a5a4dd
 
 # API CALL FOR CREATE FOODLOG
 
 ###
 POST http://127.0.0.1:8000/foodlog/
 Content-Type: application/json
-Authorization: Basic arun:arun@123
+Authorization: Token 69b9d384e133bd2d0126a953e229c25362a5a4dd
 
 {
     "title":"dosa",
@@ -47,14 +59,14 @@ Authorization: Basic arun:arun@123
 ###
 GET http://127.0.0.1:8000/foodlog/1/
 Accept: application/json
-Authorization: Basic arun:arun@123
+Authorization: Token 69b9d384e133bd2d0126a953e229c25362a5a4dd
 
 # API CALL FOR UPDATE
 
 ###
 PUT http://127.0.0.1:8000/foodlog/1/
 Content-Type: application/json
-Authorization: Basic arun:arun@123
+Authorization: Token 69b9d384e133bd2d0126a953e229c25362a5a4dd
 
 {
     
@@ -76,7 +88,7 @@ Authorization: Basic arun:arun@123
 ###
 DELETE  http://127.0.0.1:8000/foodlog/2/
 Accept: application/json
-Authorization: Basic arun:arun@123
+Authorization: Token 69b9d384e133bd2d0126a953e229c25362a5a4dd
 
 
 # API CALL FOR CALORIE SUMMARY
@@ -84,4 +96,4 @@ Authorization: Basic arun:arun@123
 ###
 GET http://127.0.0.1:8000/foodlog/summary/
 Accept: application/json
-Authorization: Basic arun:arun@123
+Authorization: Token 69b9d384e133bd2d0126a953e229c25362a5a4dd

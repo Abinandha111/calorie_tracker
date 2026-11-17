@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'accounts',
     'rest_framework',
     'diet_tracking',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
