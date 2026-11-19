@@ -120,14 +120,17 @@ class FoodLogSummaryView(APIView):
             "monthly_calories":0
         }
 
+        #todays====
+
         cur_date = datetime.today().date()
 
         todays_total=auth_user_foodlog.filter(
                                                 created_at__date = cur_date
                                                 ).values("calorie").aggregate(total=Sum("calorie")).get("total")
 
-        #todays_total=3200
+        
 
+        #monthly =====
         cur_month = datetime.today().month
         cur_year = datetime.today().year
 
@@ -136,9 +139,80 @@ class FoodLogSummaryView(APIView):
             created_at__year=cur_year
         ).values("calorie").aggregate(total=Sum("calorie")).get("total")
 
+        #monthly summary
+
+        monthly_summary = auth_user_foodlog.filter(
+            created_at__month=cur_month,
+            created_at__year=cur_year
+            ).values("meal_type").annotate(total=Sum("calorie"))
+
+        # todays summary
+
+        todays_summary = auth_user_foodlog.filter(
+            created_at__date = cur_date
+        ).values("meal_type").annotate(total=Sum("calorie"))
+
+        response_data["todays_summary"] = todays_summary
+
+        response_data["monthly_summary"] = monthly_summary
+
         response_data["monthly_calories"] = monthly_total
 
         response_data["todays_calories"]= todays_total
 
         return Response(response_data)
+
+
+
+from rest_framework.parsers import MultiPartParser,FormParser
+from rest_framework import status
+from diet_tracking.services import scan_food_image
+
+class FoodImageScanView(APIView):
+
+    authentication_classes=[authentication.TokenAuthentication]
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    parser_classes = [MultiPartParser, FormParser] #for image 
+
+    def post(self, request):
+
+        food_image = request.FILES.get("food_image")
+
+        if not food_image:
+            return Response(
+                {"error": "Please upload a food image"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+
+            data = scan_food_image(food_image)
+
+            
+
+            serializer_instance = FoodLogSerializer(data=data)
+
+            if serializer_instance.is_valid():
+
+                serializer_instance.save(owner=request.user)
+
+                return Response({
+                                "message": "food image scanned successfully",
+                                "data": serializer_instance.data
+                            })
+
+            else:
+
+                return Response(serializer_instance.errors)
+            
+        except Exception as e:
+
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
 

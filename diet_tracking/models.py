@@ -6,7 +6,7 @@ class FoodLog(models.Model):
 
     title = models.CharField(max_length=200,null=True)
 
-    quantity = models.CharField(max_length=200)
+    quantity = models.CharField(max_length=200,null=True,blank=True)
 
     MEAL_OPTIONS = [
         ("breakfast","breakfast"),

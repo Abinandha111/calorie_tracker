@@ -22,6 +22,7 @@ from accounts.views import SignUpView
 from diet_tracking.views import FoodLogListCreateView
 from diet_tracking.views import FoodLogRetrieveUpdateDeleteView
 from diet_tracking.views import FoodLogSummaryView
+from diet_tracking.views import FoodImageScanView
 
 from rest_framework.authtoken.views import ObtainAuthToken
 urlpatterns = [
@@ -32,6 +33,8 @@ urlpatterns = [
     path('foodlog/',FoodLogListCreateView.as_view()),
     path('foodlog/<int:pk>/',FoodLogRetrieveUpdateDeleteView.as_view()),
     path('foodlog/summary/',FoodLogSummaryView.as_view()),
+    path('food_image/scan/',FoodImageScanView.as_view()),
+
 
     #token
     path('token/',ObtainAuthToken.as_view()),
